@@ -6,7 +6,12 @@ namespace SigmaTask12_Shop_Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PersonalData data = new PersonalData();
+
+            data.Address.Country = "Oleh";
+
+
+            Console.WriteLine(@"{0}",data.Address.Country);
         }
     }
 }
