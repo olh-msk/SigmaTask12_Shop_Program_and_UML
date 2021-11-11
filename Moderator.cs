@@ -15,6 +15,5 @@ namespace SigmaTask12_Shop_Program
         {
             this.ModeratorId = moderatorNextUniqueId++;
         }
-
     }
 }

@@ -16,6 +16,8 @@ namespace SigmaTask12_Shop_Program
 
         public bool SelfDelivery { get; private set; }
 
+        
+
         public Order()
         {
             this.OrderId = orderNextUniqueId++;

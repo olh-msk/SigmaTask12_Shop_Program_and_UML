@@ -4,8 +4,7 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    class ShoppingCart
+    class Product
     {
-
     }
 }
