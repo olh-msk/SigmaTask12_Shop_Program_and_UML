@@ -19,12 +19,12 @@ namespace SigmaTask12_Shop_Program
 
         public PersonalData()
         {
-            Name = "N/A";
-            Password = "N/A";
-            Age = 0;
-            PnoneNumber = "N/A";
-            Money = 0;
-            Address = new Address();
+            this.Name = "N/A";
+            this.Password = "N/A";
+            this.Age = 0;
+            this.PnoneNumber = "N/A";
+            this.Money = 0;
+            this.Address = new Address();
         }
     }
 }

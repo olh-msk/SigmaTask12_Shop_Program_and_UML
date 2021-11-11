@@ -4,21 +4,20 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    class Shop
+    class ShopStaff
     {
-        private static Shop instance;
+        private static ShopStaff instance;
 
-
-        private Shop()
+        private ShopStaff()
         {
-
+            
         }
 
-        public static Shop Instance()
+        public static ShopStaff Instance()
         {
             if(instance == null)
             {
-                instance = new Shop();
+                instance = new ShopStaff();
             }
             return instance;
         }

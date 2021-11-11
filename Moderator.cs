@@ -13,7 +13,8 @@ namespace SigmaTask12_Shop_Program
 
         public Moderator()
         {
-            ModeratorId = moderatorNextUniqueId++;
+            this.ModeratorId = moderatorNextUniqueId++;
         }
+
     }
 }
