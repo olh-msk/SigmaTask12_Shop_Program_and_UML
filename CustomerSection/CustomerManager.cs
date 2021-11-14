@@ -59,7 +59,10 @@ namespace SigmaTask12_Shop_Program
         //додати покупця
         public void AddCustomer(Customer cust)
         {
-            this.customers.Add(cust);
+            if(!IfCustomerInList(cust.CustomerId))
+            {
+                this.customers.Add(cust);
+            }
         }
         //видалити покупця по ID
         public void RemoveCustomer(int cusID)

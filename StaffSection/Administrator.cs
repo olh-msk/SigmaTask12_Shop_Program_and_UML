@@ -4,28 +4,18 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    interface IPerationAddRemoveProduct
+    interface IOperationAddRemoveProduct
     {
-
+        public void AddProduct(int storageType,Product prod);
+        public void RemoveProduct(int storageType, int prodID);
     }
     interface IOperationChangeCustomerStatus
     {
-        public bool ChangeCustomerStatus(int custID, UserStatus status);
+        public void ChangeCustomerStatus(int custID, UserStatus status);
     }
 
-    abstract class Employee
-    {
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
 
-        public Employee()
-        {
-            this.Name = "N/A";
-            this.PhoneNumber = "N/A";
-        }
-    }
-
-    class Administrator: Employee, IOperationChangeCustomerStatus
+    class Administrator: Employee, IOperationChangeCustomerStatus, IOperationAddRemoveProduct
     {
         //відповідає за id
         private static int administratorNextUniqueId = 1;
@@ -37,11 +27,25 @@ namespace SigmaTask12_Shop_Program
             this.AdministratorId = administratorNextUniqueId++;
         }
 
-        //змінити статус покупця
         //послати повідомлення у медіатор і там воно обробиться-----------------
-        public bool ChangeCustomerStatus(int custID, UserStatus status)
+
+        //змінити статус покупця
+        public void ChangeCustomerStatus(int custID, UserStatus status)
         {
-            throw new NotImplementedException();
+            ShopMediator.Instance().AdministratorChangeCustomerStatus(custID,status);
+        }
+        //додати продукт у сховище, тип сховища визначається цифрою
+        // 1 - М'ясний, 2- Молочний, 3- Предмети для дому
+        //Краща логіка добавлання продуктів буду у наступних версіях програми
+        public void AddProduct(int storageType, Product prod)
+        {
+            ShopMediator.Instance().AdministratorAddProduct(storageType,prod);
+        }
+
+        //Видалити продукт
+        public void RemoveProduct(int storageType, int prodID)
+        {
+            ShopMediator.Instance().AdministratorRemoveProduct(storageType,prodID);
         }
     }
 }
