@@ -8,10 +8,11 @@ namespace SigmaTask12_Shop_Program
     {
         private static Shop instance;
 
+        public ShopFacade Facade { get; private set; }
 
         private Shop()
         {
-
+            this.Facade = ShopFacade.Instance();
         }
 
         public static Shop Instance()
