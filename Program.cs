@@ -6,9 +6,12 @@ namespace SigmaTask12_Shop_Program
     {
         static void Main(string[] args)
         {
+            Shop shop = Shop.Instance();
+
+
             PersonalData data = new PersonalData();
 
-            data.Address.Country = "Oleh";
+            data.Address.Country = "Ukraine";
 
 
             Console.WriteLine(@"{0}",data.Address.Country);

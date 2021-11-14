@@ -4,11 +4,8 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    class DairyProduct
+    class ShopFacade
     {
-        public DairyProduct() : base()
-        {
 
-        }
     }
 }
