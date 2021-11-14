@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    interface IOperationAddRemoveProduct
+    interface IOperationAdministratorAddRemoveProduct
     {
         public void AddProduct(int storageType,Product prod);
         public void RemoveProduct(int storageType, int prodID);
@@ -15,7 +15,7 @@ namespace SigmaTask12_Shop_Program
     }
 
 
-    class Administrator: Employee, IOperationChangeCustomerStatus, IOperationAddRemoveProduct
+    class Administrator: Employee, IOperationChangeCustomerStatus, IOperationAdministratorAddRemoveProduct
     {
         //відповідає за id
         private static int administratorNextUniqueId = 1;

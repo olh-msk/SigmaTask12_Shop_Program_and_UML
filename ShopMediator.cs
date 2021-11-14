@@ -28,7 +28,39 @@ namespace SigmaTask12_Shop_Program
         {
 
         }
+
+        public bool IfProductExistInStorage()
+        {
+            bool res = false;
+            
+            return res;
+        }
+
+        public Product GetProductByID(int prodID)
+        {
+            Product
+        }
+        //треба перевірку чи не вийшло за максимальну
+        //кількість продутків на складі
+        //бо тоді не вийде додати
+        //bool значить можна додати
+        public bool CheckProductMaxAmount(int prodID)
+        {
+            bool res = false;
+            return res;
+        }
+
+        //те саме, коли продукту немає на складі
+        //ми не можемо його додати у замовлення або видалити зі складу
+        //bool значить можна відняти
+        public bool CheckProductMinAmount(int prodID)
+        {
+            bool res = false;
+            return res;
+        }
+
         //адмінстратор дадати продукт
+        //якщо є вже такий продукт, то просто кількість збільшити??
         public void AdministratorAddProduct(int storageNum, Product prod)
         {
 
