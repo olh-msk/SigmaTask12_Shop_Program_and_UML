@@ -5,7 +5,7 @@ using System.Text;
 namespace SigmaTask12_Shop_Program
 {
 
-    #region [Factories]
+    #region [Product Factories]
     interface AbstractProductFactory
     {
         public MeatProduct CreateMeatProduct();

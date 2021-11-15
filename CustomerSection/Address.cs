@@ -18,5 +18,11 @@ namespace SigmaTask12_Shop_Program
             Country = "N/A";
             Zipcode = 0;
         }
+
+        //змінити інформацію про адресу, буде по GUI
+        public void ChangeAddress()
+        {
+
+        }
     }
 }

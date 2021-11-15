@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    abstract class Customer
+    abstract class Customer: User
     {
         //змінна для id
         private static int nextCustomertId = 1;
@@ -14,18 +14,19 @@ namespace SigmaTask12_Shop_Program
         public ShoppingCart ShoppingCart { get; set; }
         public PersonalData PersonalData { get; set; }
 
-        public Customer()
+        public Customer():base()
         {
             CustomerId = nextCustomertId++;
             this.ShoppingCart = new ShoppingCart();
             this.PersonalData = new PersonalData();
+            this.UserStatus = UserStatus.Registered;
         }
 
         //для заходження у систему-----------
-        public bool LogIn()
+        //тут буде взаємодія з GUI у майбітніх версіях
+        public bool LogIn(string login, string password)
         {
-            bool ifSuccess = false;
-            return ifSuccess;
+            return this.PersonalData.CheckForLogin(login, password);
         }
     }
 }

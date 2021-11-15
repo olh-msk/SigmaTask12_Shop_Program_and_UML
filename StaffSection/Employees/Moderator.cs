@@ -9,6 +9,10 @@ namespace SigmaTask12_Shop_Program
     {
         public void GetCustomerOrders();
     }
+    interface IOperationModeratorCreateDiscounts
+    {
+
+    }
     class Moderator : Employee
     {
         //відповідає за id створенних модераторів

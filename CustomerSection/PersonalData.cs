@@ -26,5 +26,23 @@ namespace SigmaTask12_Shop_Program
             this.Money = 0;
             this.Address = new Address();
         }
+
+        //перервірка логіну і паролю
+        //true, якщо співпадає
+        public bool CheckForLogin(string name, string password)
+        {
+            bool res = false;
+            if(this.Name == name && this.Password == password)
+            {
+                res = true;
+            }    
+            return res;
+        }
+
+        //тут буде взаємодія з GUI для зміни персональної інформації
+        public void ChangeInformation()
+        {
+
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SigmaTask12_Shop_Program
 {
@@ -30,7 +28,7 @@ namespace SigmaTask12_Shop_Program
         }
 
         //перевіряє чи є покупець по ID
-        public bool IfCustomerInList(int cusID)
+        public bool IfCustomerExistInList(int cusID)
         {
             bool res = false;
             foreach(Customer cust in customers)
@@ -59,7 +57,7 @@ namespace SigmaTask12_Shop_Program
         //додати покупця
         public void AddCustomer(Customer cust)
         {
-            if(!IfCustomerInList(cust.CustomerId))
+            if(!IfCustomerExistInList(cust.CustomerId))
             {
                 this.customers.Add(cust);
             }
@@ -78,10 +76,20 @@ namespace SigmaTask12_Shop_Program
 
         //Метод створити покупця
         //краща реалізація буде у майбутних версіях
-        public Customer CreateCustomer()
+        //1 - VIP 2 - звичайний
+        public Customer CreateCustomer(int cusType)
         {
-            Customer cus = new Customer();
+            Customer cust = null;
+            if(cusType == 1)
+            {
+                cust = new VIPCustomer();
+            }
+            else if(cusType == 2)
+            {
+                cust = new SimpleCustomer();
+            }
 
+            return cust;
         }
     }
 }
