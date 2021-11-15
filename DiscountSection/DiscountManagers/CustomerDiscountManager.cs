@@ -4,7 +4,13 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    class CustomerDiscountManager
+    #region [Customer Discount Manager]
+    interface IOperationSetGetCustomerDiscount
+    {
+        public CustomerDiscount GetCustomerDiscount(int cusID);
+        public void SetDiscountForCustomer(int cusID, CustomerDiscount dis);
+    }
+    class CustomerDiscountManager:IOperationSetGetCustomerDiscount
     {
         private static CustomerDiscountManager instance;
         //зберігає ід покупця і його знижку, якщо вона є
@@ -48,5 +54,11 @@ namespace SigmaTask12_Shop_Program
             }
             return null;
         }
+        //чи має покупець знижку
+        public bool IfCustomerHasDiscount(int cusID)
+        {
+            return customerDiscounts.ContainsKey(cusID);
+        }
     }
+    #endregion
 }

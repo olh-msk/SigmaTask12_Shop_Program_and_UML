@@ -182,6 +182,19 @@ namespace SigmaTask12_Shop_Program
         {
 
         }
+
+        //модератор створює знижки-----------------------------------
+        public void ModeratorAddNewCustomerDiscount(int cusID)
+        {
+            CustomerDiscount disc = CustomerDiscountManager.Instance().CreateNewCustomerDiscount();
+            CustomerDiscountManager.Instance().SetDiscountForCustomer(cusID,disc);
+        }
+
+        public void ModeratorAddNewProductDiscount(int prodID)
+        {
+            ProductDiscount disc = ProductDiscountManager.Instance().CreateNewProductDiscount();
+            ProductDiscountManager.Instance().SetDiscountForProduct(prodID,disc);
+        }
     }
     #endregion
 }

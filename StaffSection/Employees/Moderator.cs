@@ -11,9 +11,10 @@ namespace SigmaTask12_Shop_Program
     }
     interface IOperationModeratorCreateDiscounts
     {
-
+        public void CreateCustomerDiscount(int cusID);
+        public void CreateProductDiscount(int prodID);
     }
-    class Moderator : Employee
+    class Moderator : Employee, IOperationModeratorCreateDiscounts
     {
         //відповідає за id створенних модераторів
         private static int moderatorNextUniqueId = 1;
@@ -24,8 +25,16 @@ namespace SigmaTask12_Shop_Program
         {
             this.ModeratorId = moderatorNextUniqueId++;
         }
+        //створити знижки передаємо на посередника
+        public void CreateCustomerDiscount(int cusID)
+        {
+            ShopMediator.Instance().ModeratorAddNewCustomerDiscount(cusID);
+        }
 
-
+        public void CreateProductDiscount(int prodID)
+        {
+            ShopMediator.Instance().ModeratorAddNewProductDiscount(prodID);
+        }
     }
     #endregion
 }
