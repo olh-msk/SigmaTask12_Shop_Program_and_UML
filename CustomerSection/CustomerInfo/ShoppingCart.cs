@@ -4,35 +4,63 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
+    #region [Shopping Cart]
     class ShoppingCart
     {
-        List<Order> customerOrders;
+        //має продукт і його кількість
+        Dictionary<int, int> productsInCart;
 
         public ShoppingCart()
         {
-            customerOrders = new List<Order>();
+            productsInCart = new Dictionary<int, int>();
         }
 
-        //перевіряє чи є подібний заказ вже у списку
-        public bool IfOredrInList(int orderID)
+        //додати продукт у корзину на вказану кількість, виклик 
+        //буде оброблятись у медіаторі
+        public void AddProductToCart(int prodID, int amount = 1)
         {
-            bool res = false;
-            foreach(Order order in customerOrders)
+            for(int i =0; i<amount;i++)
             {
-                if(order.OrderId == orderID)
+                //перевірка чи продукт є на складі
+                if(ShopMediator.Instance().CheckProductMinAmount(prodID))
                 {
-                    res = true;
-                    break;
+                    //перерірка чи ми ще не маємо такого продутку у корзині
+                    if (!IfCartHaveProduct(prodID))
+                    {
+                        //беремо 1 штуку
+                        ShopMediator.Instance().TakeProductFromStorage(prodID);
+                        productsInCart[prodID] = 1;
+                    }
+                    //інаше нарощуємо кількість взяти продуктів
+                    else
+                    {
+                        ShopMediator.Instance().TakeProductFromStorage(prodID);
+                        productsInCart[prodID]++;
+                    }
                 }
+                
             }
-            return res;
         }
-        public void AddNewOrder(Order order)
+        public void RemoveProductFormCart(int prodID, int amount = 1)
         {
-            if(!IfOredrInList(order.OrderId))
+            for(int i =0; i< amount; i++)
             {
-                customerOrders.Add(order);
+
             }
         }
+
+        //виклик створення замовлення переноситься на медіатор----
+        public void CreateOrder(bool ifSelf)
+        {
+
+        }
+
+        public bool IfCartHaveProduct(int prodID)
+        {
+            return productsInCart.ContainsKey(prodID);
+        }
+
+
     }
+    #endregion
 }

@@ -23,6 +23,82 @@ namespace SigmaTask12_Shop_Program
             return instance;
         }
 
+        //дії адіністратора------------------------
+
+        //адмінстратор дадати продукт
+        //якщо є вже такий продукт, то просто кількість збільшити
+        // 1 - М'ясний, 2- Молочний, 3- Предмети для дому
+        //Краща логіка добавлання продуктів буду у наступних версіях програми
+        public void AdministratorAddProduct(int storageNum, Product prod)
+        {
+            //якщо вже є такий продукт, просто збільшити кількість
+            if (IfProductExistInStorages(prod.ProductId))
+            {
+                Product storProd = GetProductByID(prod.ProductId);
+                //якщо є міце на складі
+                if (CheckProductMaxAmount(storProd.ProductId))
+                {
+                    storProd.Amount++;
+                }
+            }
+            //продукт ще не існує, додаємо до вибраного складу
+            //в встановлюємо його максимальну кульість на складі
+            else
+            {
+                if (storageNum == 1)
+                {
+                    ShopFacade.Instance().StorageManager.MeatStorage.AddProductToStorage(prod);
+                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId, 20);
+                }
+                else if (storageNum == 2)
+                {
+                    ShopFacade.Instance().StorageManager.DairyStorage.AddProductToStorage(prod);
+                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId, 20);
+                }
+                else if (storageNum == 3)
+                {
+                    ShopFacade.Instance().StorageManager.HouseholdStorage.AddProductToStorage(prod);
+                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId, 20);
+                }
+            }
+        }
+        //якщо вже існує, то зменшити кількість
+        //якщо кількіст = 0, то видалити з сховищ
+        public void AdministratorRemoveProduct(int storageNum, int prodID)
+        {
+            //якщо такий продукт існує
+            if (IfProductExistInStorages(prodID))
+            {
+                Product prod = GetProductByID(prodID);
+                //є ще  продукти даного типу
+                if (CheckProductMinAmount(prod.ProductId))
+                {
+                    prod.Amount--;
+                }
+                //нема більше таких продуктів, забираємо продукт зі складу
+                else
+                {
+                    if (storageNum == 1)
+                    {
+                        ShopFacade.Instance().StorageManager.MeatStorage.RemoveProductFromStorage(prodID);
+                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
+                    }
+                    else if (storageNum == 2)
+                    {
+                        ShopFacade.Instance().StorageManager.DairyStorage.RemoveProductFromStorage(prodID);
+                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
+
+                    }
+                    else if (storageNum == 3)
+                    {
+                        ShopFacade.Instance().StorageManager.HouseholdStorage.RemoveProductFromStorage(prodID);
+                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
+
+                    }
+                }
+            }
+        }
+
         //реалізація методу зміни статусу покупця адміністратором
         //у майбутньому можна зробити перевірку статусу, і робити
         //відповідні дії пов'язані з ним
@@ -35,6 +111,8 @@ namespace SigmaTask12_Shop_Program
                 CustomerManager.Instance().GetCustomerById(cusID).UserStatus = status;
             }
         }
+        
+        
         //Пеервіряє чи взагалі існує продукт у якось зі сховищ
         public bool IfProductExistInStorages(int prodID)
         {
@@ -97,88 +175,10 @@ namespace SigmaTask12_Shop_Program
         }
 
 
-        //адмінстратор дадати продукт
-        //якщо є вже такий продукт, то просто кількість збільшити
-        // 1 - М'ясний, 2- Молочний, 3- Предмети для дому
-        //Краща логіка добавлання продуктів буду у наступних версіях програми
-        public void AdministratorAddProduct(int storageNum, Product prod)
-        {
-            //якщо вже є такий продукт, просто збільшити кількість
-            if (IfProductExistInStorages(prod.ProductId))
-            {
-                Product storProd = GetProductByID(prod.ProductId);
-                //якщо є міце на складі
-                if (CheckProductMaxAmount(storProd.ProductId))
-                {
-                    storProd.Amount++;
-                }
-            }
-            //продукт ще не існує, додаємо до вибраного складу
-            //в встановлюємо його максимальну кульість на складі
-            else
-            {
-                if (storageNum == 1)
-                {
-                    ShopFacade.Instance().StorageManager.MeatStorage.AddProductToStorage(prod);
-                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId,20);
-                }
-                else if (storageNum == 2)
-                {
-                    ShopFacade.Instance().StorageManager.DairyStorage.AddProductToStorage(prod);
-                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId, 20);
-                }
-                else if (storageNum == 3)
-                {
-                    ShopFacade.Instance().StorageManager.HouseholdStorage.AddProductToStorage(prod);
-                    ProductMaxAmounts.Instance().SetProductMaxAmount(prod.ProductId, 20);
-                }
-            }    
-        }
-        //якщо вже існує, то зменшити кількість
-        //якщо кількіст = 0, то видалити з сховищ
-        public void AdministratorRemoveProduct(int storageNum, int prodID)
-        {
-            //якщо такий продукт існує
-            if(IfProductExistInStorages(prodID))
-            {
-                Product prod = GetProductByID(prodID);
-                //є ще  продукти даного типу
-                if(CheckProductMinAmount(prod.ProductId))
-                {
-                    prod.Amount--;
-                }
-                //нема більше таких продуктів, забираємо продукт зі складу
-                else
-                {
-                    if (storageNum == 1)
-                    {
-                        ShopFacade.Instance().StorageManager.MeatStorage.RemoveProductFromStorage(prodID);
-                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
-                    }
-                    else if(storageNum == 2)
-                    {
-                        ShopFacade.Instance().StorageManager.DairyStorage.RemoveProductFromStorage(prodID);
-                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
-
-                    }
-                    else if(storageNum == 3)
-                    {
-                        ShopFacade.Instance().StorageManager.HouseholdStorage.RemoveProductFromStorage(prodID);
-                        ProductMaxAmounts.Instance().RemoveProductMaxAmount(prodID);
-
-                    }
-                }
-            }
-        }
+        
         //має співпрацювати з GUI, щоб отримати інформацію
         //метод перетворення користувача на покупця-----
         public void AddNewCustomer()
-        {
-
-        }
-
-        //метод додати продукт у замовлення
-        public void OrderAddNewProduct(int prodID)
         {
 
         }
@@ -194,6 +194,25 @@ namespace SigmaTask12_Shop_Program
         {
             ProductDiscount disc = ProductDiscountManager.Instance().CreateNewProductDiscount();
             ProductDiscountManager.Instance().SetDiscountForProduct(prodID,disc);
+        }
+
+        //дії по отриманню та вертанню продукта-------------------------------
+        //забираєтся продукт з складу
+        public void TakeProductFromStorage(int prodID)
+        {
+            //якщо  є кількість на складі
+            if(CheckProductMinAmount(prodID))
+            {
+                GetProductByID(prodID).Amount--;
+            }
+        }
+        //вертається продукт зі складу
+        public void SendProductToStorage(int prodID)
+        {
+            if(CheckProductMaxAmount(prodID))
+            {
+                GetProductByID(prodID).Amount++;
+            }
         }
     }
     #endregion
