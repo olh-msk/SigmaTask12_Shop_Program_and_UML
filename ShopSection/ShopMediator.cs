@@ -24,14 +24,17 @@ namespace SigmaTask12_Shop_Program
         }
 
         //реалізація методу зміни статусу покупця адміністратором
+        //у майбутньому можна зробити перевірку статусу, і робити
+        //відповідні дії пов'язані з ним
+        //(не позволити вхід для заблокованих, або знижку для
+        //тих, хто довго зволікав)
         public void AdministratorChangeCustomerStatus(int cusID, UserStatus status)
         {
             if(ShopFacade.Instance().CustomerManager.IfCustomerExistInList(cusID))
             {
-
+                CustomerManager.Instance().GetCustomerById(cusID).UserStatus = status;
             }
         }
-
         //Пеервіряє чи взагалі існує продукт у якось зі сховищ
         public bool IfProductExistInStorages(int prodID)
         {
@@ -167,8 +170,15 @@ namespace SigmaTask12_Shop_Program
                 }
             }
         }
+        //має співпрацювати з GUI, щоб отримати інформацію
         //метод перетворення користувача на покупця-----
         public void AddNewCustomer()
+        {
+
+        }
+
+        //метод додати продукт у замовлення
+        public void OrderAddNewProduct(int prodID)
         {
 
         }

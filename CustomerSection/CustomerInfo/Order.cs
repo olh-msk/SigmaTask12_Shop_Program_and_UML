@@ -64,22 +64,24 @@ namespace SigmaTask12_Shop_Program
             return allPrice;
         }
         //додати продукт у корзину
+        //передаємо сигнал медіатору
         public void AddProduct(int prodID)
         {
             // Якщо ще є продукти на складі
             if(ShopMediator.Instance().CheckProductMinAmount(prodID))
             {
                 orderedProducts.Add(prodID);
+
             }
         }
 
+        //видалити зі замовлення продукт
         public void Removeproduct(int prodID)
         {
-            //якщо ще є місце на складі
-            if(ShopMediator.Instance().CheckProductMaxAmount(prodID))
-            {
-
-            }
+            //якщо нема місця на складі, то буде наднормаю
+            //у майбутньому можна реалізувати знижку на цей продукт
+            //щоб покупець передумав його викидати
+            
         }
     }
     #endregion

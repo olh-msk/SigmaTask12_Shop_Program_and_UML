@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
+    #region [Online Users]
     enum UserStatus {New, Registered, VIP, Inanctive, Blocked }
     abstract class User
     {
@@ -17,6 +18,12 @@ namespace SigmaTask12_Shop_Program
         //буде реалізована пізніше у графічному інтерфейсі до програми
         public void SeeProducts()
         {
+
+        }
+        //вертає статус у стрінг
+        public string GetStatusString()
+        {
+            return Enum.GetName(typeof(UserStatus), this.UserStatus);
 
         }
     }
@@ -37,4 +44,5 @@ namespace SigmaTask12_Shop_Program
            
         }
     }
+    #endregion
 }
