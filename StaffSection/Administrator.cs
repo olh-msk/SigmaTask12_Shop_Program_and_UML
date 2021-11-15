@@ -42,7 +42,7 @@ namespace SigmaTask12_Shop_Program
             ShopMediator.Instance().AdministratorAddProduct(storageType,prod);
         }
 
-        //Видалити продукт
+        //Зменшити кількість продукту або видалити продукт
         public void RemoveProduct(int storageType, int prodID)
         {
             ShopMediator.Instance().AdministratorRemoveProduct(storageType,prodID);

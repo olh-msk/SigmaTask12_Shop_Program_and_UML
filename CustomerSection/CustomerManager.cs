@@ -75,5 +75,13 @@ namespace SigmaTask12_Shop_Program
                 }
             }
         }
+
+        //Метод створити покупця
+        //краща реалізація буде у майбутних версіях
+        public Customer CreateCustomer()
+        {
+            Customer cus = new Customer();
+
+        }
     }
 }

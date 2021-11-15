@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
+    #region [Products Max Amounts]
     //зберігає максимальну кількість продуктів
     class ProductMaxAmounts
     {
@@ -25,13 +26,13 @@ namespace SigmaTask12_Shop_Program
             }
             return instance;
         }
-        //встановлює макс кількість---
-        public void SetProdMaxAmount(int prodID, int maxAmount)
+        //встановлює макс кількість-----
+        public void SetProductMaxAmount(int prodID, int maxAmount)
         {
             listOfAmounts[prodID] = maxAmount;
         }
-        //вертає макс кількість залежно від ід продукту--
-        public int GetMaxAmount(int prodID)
+        //вертає макс кількість залежно від ід продукту----
+        public int GetProductMaxAmount(int prodID)
         {
             if(listOfAmounts.ContainsKey(prodID))
             {
@@ -40,5 +41,10 @@ namespace SigmaTask12_Shop_Program
             //якщо нема ід тоді 0
             return 0;
         }
+        public void RemoveProductMaxAmount(int prodID)
+        {
+            listOfAmounts.Remove(prodID);
+        }
     }
+    #endregion
 }

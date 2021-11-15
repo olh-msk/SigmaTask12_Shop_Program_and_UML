@@ -4,7 +4,12 @@ using System.Text;
 
 namespace SigmaTask12_Shop_Program
 {
-    class Moderator: Employee
+    #region [Moderator]
+    interface IOperationModeratorGetCustomerOrderList
+    {
+        public void GetCustomerOrders();
+    }
+    class Moderator : Employee
     {
         //відповідає за id створенних модераторів
         private static int moderatorNextUniqueId = 1;
@@ -15,5 +20,8 @@ namespace SigmaTask12_Shop_Program
         {
             this.ModeratorId = moderatorNextUniqueId++;
         }
+
+
     }
+    #endregion
 }
