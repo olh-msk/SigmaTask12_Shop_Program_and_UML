@@ -6,8 +6,8 @@ namespace SigmaTask12_Shop_Program
 {
     interface IOperationAdministratorAddRemoveProduct
     {
-        public void AddProduct(int storageType,Product prod);
-        public void RemoveProduct(int storageType, int prodID);
+        public void AddProduct(int storageType, Product prod, int amount);
+        public void RemoveProduct(int storageType, int prodID, int amount);
     }
     interface IOperationChangeCustomerStatus
     {
@@ -37,15 +37,24 @@ namespace SigmaTask12_Shop_Program
         //додати продукт у сховище, тип сховища визначається цифрою
         // 1 - М'ясний, 2- Молочний, 3- Предмети для дому
         //Краща логіка добавлання продуктів буду у наступних версіях програми
-        public void AddProduct(int storageType, Product prod)
+        public void AddProduct(int storageType, Product prod, int amount= 1)
         {
-            ShopMediator.Instance().AdministratorAddProduct(storageType,prod);
+            //дадати вказану кількість продуктів
+            for(int i =0; i < amount; i++)
+            {
+                ShopMediator.Instance().AdministratorAddProduct(storageType, prod);
+            }
         }
 
         //Зменшити кількість продукту або видалити продукт
-        public void RemoveProduct(int storageType, int prodID)
+        public void RemoveProduct(int storageType, int prodID, int amount=1)
         {
-            ShopMediator.Instance().AdministratorRemoveProduct(storageType,prodID);
+            //відняти вказану кількість
+            for(int i =0; i < amount; i ++)
+            {
+                ShopMediator.Instance().AdministratorRemoveProduct(storageType, prodID);
+
+            }
         }
     }
 }

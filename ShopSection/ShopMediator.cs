@@ -104,7 +104,7 @@ namespace SigmaTask12_Shop_Program
         public void AdministratorAddProduct(int storageNum, Product prod)
         {
             //якщо вже є такий продукт, просто збільшити кількість
-            if(IfProductExistInStorages(prod.ProductId))
+            if (IfProductExistInStorages(prod.ProductId))
             {
                 Product storProd = GetProductByID(prod.ProductId);
                 //якщо є міце на складі

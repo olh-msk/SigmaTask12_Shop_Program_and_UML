@@ -11,11 +11,11 @@ namespace SigmaTask12_Shop_Program
         private static ProductMaxAmounts instance;
 
         //збрігає id продукту і його максимальну кількість
-        Dictionary<int, int> listOfAmounts;
+        Dictionary<int, int> listOfProductMaxAmounts;
 
         private ProductMaxAmounts()
         {
-            listOfAmounts = new Dictionary<int, int>();
+            listOfProductMaxAmounts = new Dictionary<int, int>();
         }
 
         public static ProductMaxAmounts Instance()
@@ -29,21 +29,21 @@ namespace SigmaTask12_Shop_Program
         //встановлює макс кількість-----
         public void SetProductMaxAmount(int prodID, int maxAmount)
         {
-            listOfAmounts[prodID] = maxAmount;
+            listOfProductMaxAmounts[prodID] = maxAmount;
         }
         //вертає макс кількість залежно від ід продукту----
         public int GetProductMaxAmount(int prodID)
         {
-            if(listOfAmounts.ContainsKey(prodID))
+            if(listOfProductMaxAmounts.ContainsKey(prodID))
             {
-                return listOfAmounts[prodID];
+                return listOfProductMaxAmounts[prodID];
             }
             //якщо нема ід тоді 0
             return 0;
         }
         public void RemoveProductMaxAmount(int prodID)
         {
-            listOfAmounts.Remove(prodID);
+            listOfProductMaxAmounts.Remove(prodID);
         }
     }
     #endregion

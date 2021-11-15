@@ -29,6 +29,7 @@ namespace SigmaTask12_Shop_Program
         public void AddProductToStorage(Product prod)
         {
             MeatProduct _prod = prod as MeatProduct;
+            _prod.Amount++;
             products.Add(_prod);
         }
         //----------------
@@ -87,6 +88,7 @@ namespace SigmaTask12_Shop_Program
         public void AddProductToStorage(Product prod)
         {
             HouseholdProduct _prod = prod as HouseholdProduct;
+            _prod.Amount++;
             products.Add(_prod);
         }
         //-------------
@@ -147,6 +149,7 @@ namespace SigmaTask12_Shop_Program
         public void AddProductToStorage(Product prod)
         {
             DairyProduct _prod = prod as DairyProduct;
+            _prod.Amount++;
             products.Add(_prod);
         }
         //------------
