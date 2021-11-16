@@ -44,5 +44,15 @@ namespace SigmaTask12_Shop_Program
         {
 
         }
+        //віднімаємо гроші з кошилька
+        public void WithdrawMoney(double sum)
+        {
+
+        }
+        //чи є достатньо грошей
+        public bool IfHasEnoughMoney(double sum)
+        {
+            return this.Money >= sum;
+        }
     }
 }

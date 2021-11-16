@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SigmaTask12_Shop_Program
 {
@@ -59,7 +60,29 @@ namespace SigmaTask12_Shop_Program
 
             //замовлення покупця буде виводити у GUI, де він зможе
             //їх переглядати і змінювати за потреби
+            Product test_prod2 = shop.Facade.StorageManager.ProductFactory.CreateDairyProduct();
+            admin.AddProduct(2,test_prod2,13);
 
+            vipcus.ShoppingCart.AddProductToCart(test_prod.ProductId);
+            vipcus.ShoppingCart.AddProductToCart(test_prod2.ProductId,10);
+
+            Console.WriteLine("\nMax amount of prod2 : {0}",ProductMaxAmounts.Instance().GetProductMaxAmount(test_prod2.ProductId));
+            Console.WriteLine("TestProd2 remain in Storage (13-10=3): {0}",test_prod2.Amount);
+
+            Console.WriteLine("\nDiferent Products on vip Cart : {0}", vipcus.ShoppingCart.GetCount());
+
+            vipcus.ShoppingCart.CreateOrder(vipcus.CustomerId);
+
+            List<Order> vipOrders = OrderManager.Instance().GetCustomerOrdersById(vipcus.CustomerId);
+
+            Console.WriteLine("Diferent Products on Cart after order: {0}\n", vipcus.ShoppingCart.GetCount());
+
+            foreach(Order order in vipOrders)
+            {
+                Console.WriteLine("Order Id: {0}",order.OrderId);
+                Console.WriteLine("Order date: {0}",order.orderDate.ToShortDateString());
+                Console.WriteLine("Detailed info:\n{0}",order.ToString());
+            }
         }
     }
 }

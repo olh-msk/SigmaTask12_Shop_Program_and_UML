@@ -140,6 +140,17 @@ namespace SigmaTask12_Shop_Program
         {
             this.orderedProducts = _orderedProducts;
         }
+
+        public override string ToString()
+        {
+            string res = "";
+
+            foreach(var pair in orderedProducts)
+            {
+                res += string.Format("Prod ID {0}\t amount: {1}\n",pair.Key, pair.Value);
+            }
+            return res;
+        }
     }
     #endregion
 }

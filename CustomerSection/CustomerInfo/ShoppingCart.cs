@@ -51,10 +51,13 @@ namespace SigmaTask12_Shop_Program
 
         //виклик створення замовлення переноситься на медіатор----
         //приймає ід покупця змінну, чи самодоставка чи ні
+        //маємо підрахувати грші зі знижкою і відніяти їх від покупця
         public void CreateOrder(int cusID)
         {
-            ShopMediator.Instance().CartCreateNewOrder(cusID, this.productsInCart);
+            //даємо туди копію списку продуктів
+            ShopMediator.Instance().CartCreateNewOrder(cusID, new Dictionary<int, int>(this.productsInCart));
             //очищуємо корзину, бо ми вже маємо замовлення
+            //щоб покупець вибрав нові продукти
             productsInCart.Clear();
         }
 
@@ -63,6 +66,10 @@ namespace SigmaTask12_Shop_Program
             return productsInCart.ContainsKey(prodID);
         }
 
+        public int GetCount()
+        {
+            return productsInCart.Count;
+        }
 
     }
     #endregion
