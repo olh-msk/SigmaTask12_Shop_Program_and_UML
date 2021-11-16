@@ -26,16 +26,19 @@ namespace SigmaTask12_Shop_Program
             return instance;
         }
 
-        public void AddNewCustomerOrder(int cusID, bool ifSelf)
+        public void AddNewCustomerOrder(int cusID, Order order)
         {
+            //просто добавити
             if(IfHasCustomerOrders(cusID))
             {
-                customerOrders[cusID].Add(new Order());
-                customerOrders[cusID][0].s
+                customerOrders[cusID].Add(order);
             }
+            //якщо такого замовлення ще не було, то ініціалізувати
+            //список і добавити
             else
             {
-                customerOrders[cusID] = 
+                customerOrders[cusID] = new List<Order>();
+                customerOrders[cusID].Add(order);
             }
         }
 
@@ -87,7 +90,7 @@ namespace SigmaTask12_Shop_Program
 
         //Тут має бути взаємодія з GUI, щоб уточнити інформацію про
         //покупку, буде реалізовно у майбітніх версіях
-        public Order CreateNewOrder()
+        public Order CreateNewOrder(Dictionary<int,int> productsInCart)
         {
             return new Order();
         }

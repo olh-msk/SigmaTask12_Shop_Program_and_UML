@@ -216,9 +216,10 @@ namespace SigmaTask12_Shop_Program
         }
 
         //стоврити нове замовлення-----------------
-        public void CartCreateNewOrder(int cusID,bool ifSelf)
+        public void CartCreateNewOrder(int cusID, Dictionary<int,int> productsInCart)
         {
-            OrderManager.Instance().AddNewCustomerOrder(cusID, ifSelf);
+            Order newOrdr = OrderManager.Instance().CreateNewOrder(productsInCart);
+            OrderManager.Instance().AddNewCustomerOrder(cusID, newOrdr);
         }
     }
     #endregion

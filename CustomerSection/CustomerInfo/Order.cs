@@ -12,13 +12,13 @@ namespace SigmaTask12_Shop_Program
         public void AddProduct(int prodID);
         public void Removeproduct(int prodID);
     }
-    class Order: IOperationOrderAddRemoveProduct
+    class Order
     {
         //відповідає за id створенних 
         private static int orderNextUniqueId = 1;
 
         //записуються ID замовлених продуктів
-        List<int> orderedProducts;
+        Dictionary<int,int> orderedProducts;
 
         public int OrderId { get; private set; }
 
@@ -39,7 +39,7 @@ namespace SigmaTask12_Shop_Program
 
             this.OrderSatus = OrderSatus.New;
 
-            this.orderedProducts = new List<int>();
+            this.orderedProducts = new Dictionary<int, int>();
         }
 
         //тут у майбутньому можна реалізувати відрахування коштів покупцю
@@ -54,34 +54,85 @@ namespace SigmaTask12_Shop_Program
             this.OrderSatus = stat;
         }
 
+
+        //дає загальну ціну разом з знижками
         public double GetTotalProductPrice()
         {
             double allPrice = 0;
-            foreach(int prodID in orderedProducts)
+            foreach(var pair in orderedProducts)
             {
 
             }
             return allPrice;
         }
-        //додати продукт у корзину
-        //передаємо сигнал медіатору
-        public void AddProduct(int prodID)
+
+        //якщо покумець вирішить змінити замовлення
+        //додати продукт у замовлення
+        //сигнал приймається з медіатора
+        public void AddProduct(int prodID, int amount = 1)
         {
             // Якщо ще є продукти на складі
             if(ShopMediator.Instance().CheckProductMinAmount(prodID))
             {
-                orderedProducts.Add(prodID);
-
+                ShopMediator.Instance().TakeProductFromStorage(prodID);
+                for(int i =0; i < amount; i++)
+                {
+                    if (ifHasProductInOrder(prodID))
+                    {
+                        orderedProducts[prodID]++;
+                    }
+                    //продукту ще нема, тому створити
+                    else
+                    {
+                        orderedProducts[prodID] = 0;
+                        orderedProducts[prodID]++;
+                    }   
+                }
             }
         }
 
         //видалити зі замовлення продукт
-        public void Removeproduct(int prodID)
+        public void Removeproduct(int prodID, int amount = 1)
         {
             //якщо нема місця на складі, то буде наднормаю
             //у майбутньому можна реалізувати знижку на цей продукт
             //щоб покупець передумав його викидати
-            
+            // Якщо ще є продукти на складі
+            if (ShopMediator.Instance().CheckProductMaxAmount(prodID))
+            {
+                
+                for (int i = 0; i < amount; i++)
+                {
+                    if (ifHasProductInOrder(prodID))
+                    {
+                        //якщо кількість цього продукту вже рівна 0,
+                        //то видалити його
+                        if(orderedProducts[prodID] == 0)
+                        {
+                            RemoveHoleProduct(prodID);
+                        }
+                        else
+                        {
+                            ShopMediator.Instance().SendProductToStorage(prodID);
+                            orderedProducts[prodID]--;
+                        }
+                        
+                    }
+                    //неможливо забрати те, чого нема
+                    //продукту ще нема, нічого не робити
+                }
+            }
+        }
+        //чи є продукт у замовленні
+        public bool ifHasProductInOrder(int prodID)
+        {
+            return orderedProducts.ContainsKey(prodID);
+        }
+
+        //видалє цілий ключ і його значення
+        public void RemoveHoleProduct(int prodID)
+        {
+            orderedProducts.Remove(prodID);
         }
     }
     #endregion
