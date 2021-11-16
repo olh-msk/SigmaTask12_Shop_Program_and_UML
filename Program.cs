@@ -61,6 +61,7 @@ namespace SigmaTask12_Shop_Program
             //замовлення покупця буде виводити у GUI, де він зможе
             //їх переглядати і змінювати за потреби
             Product test_prod2 = shop.Facade.StorageManager.ProductFactory.CreateDairyProduct();
+            test_prod2.Price = 1000;
             admin.AddProduct(2,test_prod2,13);
 
             vipcus.ShoppingCart.AddProductToCart(test_prod.ProductId);
@@ -73,7 +74,11 @@ namespace SigmaTask12_Shop_Program
 
             vipcus.ShoppingCart.CreateOrder(vipcus.CustomerId);
 
-            List<Order> vipOrders = OrderManager.Instance().GetCustomerOrdersById(vipcus.CustomerId);
+            Moderator moder = StaffManager.Instance().ModeratorManager.CreateNewModerator();
+            ModeratorManager.Instance().AddModerator(moder);
+
+
+            List<Order> vipOrders = moder.GetCustomerOrders(vipcus.CustomerId);
 
             Console.WriteLine("Diferent Products on Cart after order: {0}\n", vipcus.ShoppingCart.GetCount());
 
@@ -83,6 +88,31 @@ namespace SigmaTask12_Shop_Program
                 Console.WriteLine("Order date: {0}",order.orderDate.ToShortDateString());
                 Console.WriteLine("Detailed info:\n{0}",order.ToString());
             }
+            vipOrders[0].RemoveHoleProduct(test_prod.ProductId);
+
+            Console.WriteLine("\nAfter update");
+            foreach (Order order in vipOrders)
+            {
+                Console.WriteLine("Order Id: {0}", order.OrderId);
+                Console.WriteLine("Order date: {0}", order.orderDate.ToShortDateString());
+                Console.WriteLine("Detailed info:\n{0}", order.ToString());
+            }
+
+
+            //створюємо знижки-----------
+            
+
+            moder.CreateCustomerDiscount(vipcus.CustomerId);
+            moder.CreateProductDiscount(test_prod2.ProductId);
+
+            CustomerDiscount cusDis = CustomerDiscountManager.Instance().GetCustomerDiscount(vipcus.CustomerId);
+            ProductDiscount prodDis = ProductDiscountManager.Instance().GetProductDiscount(test_prod2.ProductId);
+
+            Order vipOrder = OrderManager.Instance().GetOrderById(1);
+            double priceWithoutDis = vipOrder.GetTotalProductPrice();
+            double priceDiscount = vipOrder.GetTotalPriceWithDicounts(vipcus.CustomerId);
+
+            Console.WriteLine("Price: {0}\t With Discount: {1}",priceWithoutDis, priceDiscount);
         }
     }
 }

@@ -183,7 +183,8 @@ namespace SigmaTask12_Shop_Program
 
         }
 
-        //модератор створює знижки-----------------------------------
+        //модератор------------------------
+        //створює знижки
         public void ModeratorAddNewCustomerDiscount(int cusID)
         {
             CustomerDiscount disc = CustomerDiscountManager.Instance().CreateNewCustomerDiscount();
@@ -195,6 +196,12 @@ namespace SigmaTask12_Shop_Program
             ProductDiscount disc = ProductDiscountManager.Instance().CreateNewProductDiscount();
             ProductDiscountManager.Instance().SetDiscountForProduct(prodID,disc);
         }
+        //отримує список замовлень--
+        public List<Order> ModeratorGetCustomerOrderList(int cusID)
+        {
+            return OrderManager.Instance().GetCustomerOrdersById(cusID);
+        }
+
 
         //дії по отриманню та вертанню продукта-------------------------------
         //забираєтся продукт з складу
@@ -220,6 +227,27 @@ namespace SigmaTask12_Shop_Program
         {
             Order newOrdr = OrderManager.Instance().CreateNewOrder(productsInCart);
             OrderManager.Instance().AddNewCustomerOrder(cusID, newOrdr);
+        }
+
+        //порахувати ціну замовлення зі знижкою------
+        public double CalculatePriceWithDiscount(int cusID, Dictionary<int,int> orderedProducts)
+        {
+            double allPrice = 0;
+            //знижка покупця
+            CustomerDiscount cus_dis = CustomerDiscountManager.Instance().GetCustomerDiscount(cusID);
+
+            foreach(var pair in orderedProducts)
+            {
+                //знижка на кожний продукт
+                ProductDiscount prod_disc = ProductDiscountManager.Instance().GetProductDiscount(pair.Key);
+                allPrice += GetProductByID(pair.Key).Price * pair.Value;
+                allPrice = allPrice - allPrice * prod_disc.Interest;
+
+            }
+            //вираховується знижка
+            allPrice = allPrice - allPrice * cus_dis.Interest;
+
+            return allPrice;
         }
     }
     #endregion

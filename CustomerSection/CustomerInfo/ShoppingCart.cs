@@ -43,9 +43,26 @@ namespace SigmaTask12_Shop_Program
         }
         public void RemoveProductFormCart(int prodID, int amount = 1)
         {
-            for(int i =0; i< amount; i++)
+            if (IfCartHaveProduct(prodID))
             {
-
+                for (int i = 0; i < amount; i++)
+                {
+                    //перевірка чи продукт є на складі
+                    if (ShopMediator.Instance().CheckProductMaxAmount(prodID))
+                    {
+                        //якщо вже не лишилось продуктів, то видалити
+                        if (productsInCart[prodID]==0)
+                        {
+                            RemoveProductFormCart(prodID);
+                        }
+                        //інаше вертаємо продукт на склад
+                        else
+                        {
+                            ShopMediator.Instance().SendProductToStorage(prodID);
+                            productsInCart[prodID]--;
+                        }
+                    }
+                }
             }
         }
 
@@ -60,12 +77,12 @@ namespace SigmaTask12_Shop_Program
             //щоб покупець вибрав нові продукти
             productsInCart.Clear();
         }
-
+        //перерівяє чи є продукт у корзині
         public bool IfCartHaveProduct(int prodID)
         {
             return productsInCart.ContainsKey(prodID);
         }
-
+        //вертає кількість різних продуктів у корзині
         public int GetCount()
         {
             return productsInCart.Count;

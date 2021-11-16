@@ -17,7 +17,7 @@ namespace SigmaTask12_Shop_Program
         //відповідає за id створенних 
         private static int orderNextUniqueId = 1;
 
-        //записуються ID замовлених продуктів
+        //записуються ID замовлених продуктів і їх кількість
         Dictionary<int,int> orderedProducts;
 
         public int OrderId { get; private set; }
@@ -56,14 +56,20 @@ namespace SigmaTask12_Shop_Program
 
 
         //дає загальну ціну разом з знижками
+        //через медіатор
         public double GetTotalProductPrice()
         {
             double allPrice = 0;
             foreach(var pair in orderedProducts)
             {
-
+                allPrice += ShopMediator.Instance().GetProductByID(pair.Key).Price * pair.Value;
             }
             return allPrice;
+        }
+
+        public double GetTotalPriceWithDicounts(int cusID)
+        {
+            return ShopMediator.Instance().CalculatePriceWithDiscount(cusID,orderedProducts);
         }
 
         //якщо покумець вирішить змінити замовлення
