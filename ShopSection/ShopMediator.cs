@@ -214,6 +214,12 @@ namespace SigmaTask12_Shop_Program
                 GetProductByID(prodID).Amount++;
             }
         }
+
+        //стоврити нове замовлення-----------------
+        public void CartCreateNewOrder(int cusID,bool ifSelf)
+        {
+            OrderManager.Instance().AddNewCustomerOrder(cusID, ifSelf);
+        }
     }
     #endregion
 }

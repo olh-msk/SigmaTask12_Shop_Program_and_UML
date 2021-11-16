@@ -24,7 +24,7 @@ namespace SigmaTask12_Shop_Program
 
         public DateTime orderDate { get; set; }
 
-        public bool SelfDelivery { get; private set; }
+        public bool SelfDelivery { get; set; }
 
         public OrderSatus OrderSatus { get; set; }
 

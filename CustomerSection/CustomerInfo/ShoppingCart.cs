@@ -50,9 +50,10 @@ namespace SigmaTask12_Shop_Program
         }
 
         //виклик створення замовлення переноситься на медіатор----
-        public void CreateOrder(bool ifSelf)
+        //приймає ід покупця змінну, чи самодоставка чи ні
+        public void CreateOrder(int cusID, bool ifSelf)
         {
-
+            ShopMediator.Instance().CartCreateNewOrder(cusID, ifSelf);
         }
 
         public bool IfCartHaveProduct(int prodID)
