@@ -41,6 +41,39 @@ namespace SigmaTask12_Shop_Program
                 customerOrders[cusID].Add(order);
             }
         }
+        //видалити 1 замовлення з замаовлень покупця
+        public void RemoveCustomerOrder(int cusID, int orderID)
+        {
+            if(IfHasCustomerOrders(cusID))
+            {
+                if(IfHasOrder(orderID))
+                {
+                    //якщо список вже пустий, то видалити
+                    if(customerOrders[cusID].Count == 0)
+                    {
+                        RemoveAllCustomerOrders(cusID);
+                        return;
+                    }
+                    //знаходимо позицію елемента, що треба видалити
+                    //і видаляємо
+                    for(int i =0; i < customerOrders[cusID].Count;i++)
+                    {
+                        if(customerOrders[cusID][i].OrderId == orderID)
+                        {
+                            customerOrders[cusID].RemoveAt(i);
+                        }
+                    }
+                }
+            }
+        }
+        //видалити всі замовлення покупця
+        public void RemoveAllCustomerOrders(int cusID)
+        {
+            if(IfHasCustomerOrders(cusID))
+            {
+                customerOrders.Remove(cusID);
+            }
+        }
 
         public bool IfHasCustomerOrders(int cusID)
         {
@@ -92,7 +125,9 @@ namespace SigmaTask12_Shop_Program
         //покупку, буде реалізовно у майбітніх версіях
         public Order CreateNewOrder(Dictionary<int,int> productsInCart)
         {
-            return new Order();
+            Order newOrd = new Order();
+            newOrd.SetOrderedProducts(productsInCart);
+            return newOrd;
         }
     }
     #endregion

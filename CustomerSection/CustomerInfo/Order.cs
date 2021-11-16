@@ -134,6 +134,12 @@ namespace SigmaTask12_Shop_Program
         {
             orderedProducts.Remove(prodID);
         }
+
+        //встановити спосок покупок
+        public void SetOrderedProducts(Dictionary<int,int> _orderedProducts)
+        {
+            this.orderedProducts = _orderedProducts;
+        }
     }
     #endregion
 }
