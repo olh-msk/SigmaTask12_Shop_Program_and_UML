@@ -37,11 +37,11 @@ namespace SigmaTask12_Shop_Program
 
             
             VIPCustomer vipcus = (VIPCustomer)CustomerManager.Instance().CreateCustomer(1);
-            vipcus.PersonalData.Name = "Oleh";
+            vipcus.PersonalData.Login = "Oleh";
 
             CustomerManager.Instance().AddCustomer(vipcus);
 
-            string resultName = CustomerManager.Instance().GetCustomerById(vipcus.CustomerId).PersonalData.Name;
+            string resultName = CustomerManager.Instance().GetCustomerById(vipcus.CustomerId).PersonalData.Login;
 
             Console.WriteLine("Name of customer: {0}", resultName);
 

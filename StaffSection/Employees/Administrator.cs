@@ -6,7 +6,7 @@ namespace SigmaTask12_Shop_Program
 {
     interface IOperationAdministratorAddRemoveProduct
     {
-        public void AddProduct(int storageType, Product prod, int amount);
+        void AddProduct(int storageType, Product prod, int amount);
         public void RemoveProduct(int storageType, int prodID, int amount);
     }
     interface IOperationChangeCustomerStatus
